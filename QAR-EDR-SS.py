@@ -20,8 +20,9 @@ def plt_edr(ymd):
     # df = df.drop(columns=['AC_TAIL1', 'AC_TAIL2',
     #              'AC_TAIL3', 'AC_TAIL4', 'DATECLKYR', 'DATECLKMON', 'DATECLKDAY', 'GMT_HR', 'GMT_SEC', 'RALTC', 'SAT', 'TAT', 'TAS', 'CAS', 'MACH', 'HEAD_MAG', 'HEAD_TRUE', 'TOTFW', 'LATG_C', 'LONG_C'])
 
+    # %%
     df = df.fillna(0)
-    df['ALT_diff'] = df['ALT_ADIRU'].diff(-1)
+    df['ALT_diff'] = df['ALT_ADIRU'].astype(float).diff(-1)
     df['ALT_diff_Ave'] = df['ALT_diff'].rolling(
         10, center=True).mean().shift(-1)
     df['STDEV'] = df['ALT_diff_Ave'].rolling(10, center=True).std().shift(-1)
